@@ -72,6 +72,9 @@ def oppdaterSkjerm(app,Varer_Inne = None,intern=False,offset=0,reopen=True):
             print("Failed to extract data: Antall")
             return 
 
+
+        if not intern and (Antall <1):
+            continue
         first_collumn = plassering+"V0"+str(idx)
         second_collumn = plassering+"V1"+str(idx)
         third_collumn = plassering+"V2"+str(idx)
