@@ -1,16 +1,18 @@
 import os
-from Varetelling import addItem,Sale,UpdateContents,hentInnhold, findItemInContents, telling
+from Varetelling import addItem,Sale,UpdateContents,hentInnhold, findItemInContents, telling, lastSales
 from DisplayContents import oppdaterSkjerm
 import threading
-
+import datetime
 from appJar import gui
 
 sale_file = "sale_file.csv" 
-system_color = "light gray"
+system_color = "Light blue"
+system_text_color ="White"
 
 def SystemSettings():
     app.setPadding([10,5])
     app.setBg(system_color)
+    #app.setTextBg(system_text_color)
 
 def updateContentsFunc():
     app.startTab("Update Contents")
@@ -36,12 +38,14 @@ def press(button):
         return
     elif button == "Salg":
         Salg()
+        lastSalesToday()
         return
     elif button == "Find File":
         sale_file = app.openBox()
         app.setLabel("sf1",sale_file)
         app.clearLabel("up1")
         app.setLabelBg("up1",system_color)
+
     elif button == "Update":
         if sale_file:
             UpdateContents(sale_file)
@@ -62,6 +66,9 @@ def press(button):
     
     elif button == "Telling":
         telling()
+
+    elif button == "See Contents":
+        launchSubWindow("Contents")
 
     thread = threading.Thread(target=oppdaterSkjermThread, args=(app))
     thread.start()
@@ -132,9 +139,34 @@ def AddItemWindow():
     app.setStopFunction(setRegestryEnter)
     app.stopSubWindow()
 
+def seeContents():
+    app.startSubWindow("Contents")
+    app.setInPadding(x=100,y=75)
+    app.startScrollPane("Content",disabled="horizontal")
+    SystemSettings()
+    oppdaterSkjerm(app,intern=True,offset=2)
+    app.stopScrollPane()
+    app.stopSubWindow()
+
+
+numberOfSalesToFetch = 5
+def configLastSales():
+    for i in range(numberOfSalesToFetch-1,-1,-1):
+        app.addLabel("Sale_"+str(i))
+
+def lastSalesToday():
+    sisteSalg = lastSales(numberOfSalesToFetch)
+    for idx in range(len(sisteSalg)-1, -1, -1):
+        date = sisteSalg[idx][0]
+        Type = sisteSalg[idx][2]
+        name = sisteSalg[idx][3]
+        mengde = float(sisteSalg[idx][4])
+        logText = "%s: %s,%s,%.1f"%(date,Type,name,mengde)
+        app.setLabel("Sale_"+str(idx), logText)
+
+
 def NormalOperationWindow():
     app.startSubWindow("Normal Operation")
-
     SystemSettings()
 
     app.setBg(system_color)
@@ -143,14 +175,16 @@ def NormalOperationWindow():
     app.setSticky("ne")
     app.addButton("Salg",press,1,2)
     app.setSticky("ew")
+    configLastSales()
+    lastSalesToday()
     app.addLabelEntry("Strekkode på salg",0,0,3,0)
-    
-    oppdaterSkjerm(app,intern=True,offset=2)
-    app.setStopFunction(setRegestryEnter)
+
+
     app.stopSubWindow()
 
-def ItemsInRegestryButton():
+def ItemsInRegestryButton():    
     app.startSubWindow("Varer Inne", modal=False)
+    SystemSettings()
     oppdaterSkjerm(app,reopen=False)
     app.stopSubWindow()
 
@@ -182,6 +216,13 @@ def returnToDefaultEnter():
         app.enableEnter(Salg)
     return True
 
+def configButtons():
+    app.addButton("GlaTime", press,0,0)
+    app.addButton("Display Screen", press,1,1)
+    app.addButton("Add Item", press,0,1)
+    app.addButton("Telling", press, 1,0)
+    app.addButton("See Contents", press, 2,0)
+
 app = gui("Gla`timen Kasseprogram")
 
 def main():
@@ -190,15 +231,13 @@ def main():
     app.setTabbedFrameTabExpand("Gla`time", expand=True)
     app.setFont("Times")
     
+    
 
-    app.addButton("GlaTime", press,0,0)
-    app.addButton("Display Screen", press,1,1)
-    app.addButton("Add Item", press,0,1)
-    app.addButton("Telling", press, 1,0)
-
+    configButtons()
     AddItemWindow()
     NormalOperationWindow()
     ItemsInRegestryButton()
+    seeContents()
     endOfDayCount()
 
     

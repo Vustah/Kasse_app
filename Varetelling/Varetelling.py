@@ -94,6 +94,20 @@ def Sale(BarCode):
     sale.write("%d:%d:%d; %s; %s; %s; %f  \n"%(hour,minute,second,BarCode, VareType, VareNavn,Mengde))
     sale.close()
 
+def lastSales(numberOfSalesToFetch = 5):
+    today = datetime.datetime.today()
+    year = today.year
+    month = today.month
+    day = today.day
+    file_path_string = "Salgsfiler/Sale_%d-%d-%d.csv" %(day,month,year)
+    file_path_string = "Salgsfiler/Sale_16-10-2020.csv"
+    Sales = hentInnhold(file_path_string,telling=True)
+    numberOfSales = len(Sales)
+    return Sales[numberOfSales-numberOfSalesToFetch:]
+    
+
+    
+
 def findItemInContents(BarCode):
     Varekoder_innhold = hentInnhold("Varer.csv")
     #Varekoder_innhold = StdSort(Varekoder_innhold)
@@ -138,6 +152,8 @@ def telling():
     sale_dir = os.getcwd()+"/Salgsfiler"
     file_path_string = tk.filedialog.askopenfilename(initialdir = sale_dir)
     dagens_salg = hentInnhold(file_path_string,telling=True)
+    if not dagens_salg:
+        return False
     dagens_salg_sortert = []
     counted = False
     for item in dagens_salg:
