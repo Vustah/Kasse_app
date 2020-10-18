@@ -8,11 +8,12 @@ Program to keep track of the contents in the Gla´timen storage.
 
 
 ## How to Use
-The program is ran using the following command when inside the "Varetelling" folder:
-```
-python Kasseprogram.py
-```
+# Install
+Install Anaconda, and make a system variable called CONDA_PATH where Anaconda is installed. 
+Then, make an other variable called GLATIME_PATH where the glatime-folder is. 
 
+# Run
+Double click on "KasseRun.bat" or run it from the terminal. 
 
 ## Dependencies 
 - [python3](https://www.python.org/download/releases/3.0/)
