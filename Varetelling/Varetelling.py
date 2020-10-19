@@ -177,7 +177,7 @@ def telling():
 
     file_path_string = file_path_string[file_path_string.find("Sale"):]
     saleDate = file_path_string[file_path_string.find("_"):file_path_string.find(".")]
-    Salefile_counted = "Sale_counted_%s.csv" %(saleDate)
+    Salefile_counted = "Salgsfiler/Sale_counted_%s.csv" %(saleDate)
     
     sale = open(Salefile_counted,"a+",encoding="utf-8")
     for salg in dagens_salg_sortert:
