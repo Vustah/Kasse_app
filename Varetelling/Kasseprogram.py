@@ -30,6 +30,7 @@ def updateContentsFunc():
 def oppdaterSkjermThread(app):
     oppdaterSkjerm(app,intern=True)
     oppdaterSkjerm(app)
+    lastSalesToday()
 
 def press(button):
     global sale_file
@@ -38,7 +39,6 @@ def press(button):
         return
     elif button == "Salg":
         Salg()
-        lastSalesToday()
         return
     elif button == "Find File":
         sale_file = app.openBox()
@@ -157,6 +157,7 @@ def configLastSales():
 def lastSalesToday():
     sisteSalg = lastSales(numberOfSalesToFetch)
     numberOfSales = len(sisteSalg)-1
+    print(numberOfSales)
     for idx in range(numberOfSales, -1, -1):
         if idx > numberOfSales:
             continue
