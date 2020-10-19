@@ -100,10 +100,17 @@ def lastSales(numberOfSalesToFetch = 5):
     month = today.month
     day = today.day
     file_path_string = "Salgsfiler/Sale_%d-%d-%d.csv" %(day,month,year)
-    file_path_string = "Salgsfiler/Sale_16-10-2020.csv"
-    Sales = hentInnhold(file_path_string,telling=True)
+    try:
+        Sales = hentInnhold(file_path_string,telling=True)
+    except FileNotFoundError:
+        sale = open(file_path_string,"a+",encoding="utf-8")
+        sale.close()
+        Sales = hentInnhold(file_path_string,telling=True)
     numberOfSales = len(Sales)
-    return Sales[numberOfSales-numberOfSalesToFetch:]
+    if (numberOfSales < numberOfSalesToFetch):
+        return Sales
+    else:
+        return Sales[numberOfSales-numberOfSalesToFetch:]
     
 
     

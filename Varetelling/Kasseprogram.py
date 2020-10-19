@@ -152,11 +152,14 @@ def seeContents():
 numberOfSalesToFetch = 5
 def configLastSales():
     for i in range(numberOfSalesToFetch-1,-1,-1):
-        app.addLabel("Sale_"+str(i))
+        app.addLabel("Sale_"+str(i)," ")
 
 def lastSalesToday():
     sisteSalg = lastSales(numberOfSalesToFetch)
-    for idx in range(len(sisteSalg)-1, -1, -1):
+    numberOfSales = len(sisteSalg)-1
+    for idx in range(numberOfSales, -1, -1):
+        if idx > numberOfSales:
+            continue
         date = sisteSalg[idx][0]
         Type = sisteSalg[idx][2]
         name = sisteSalg[idx][3]
