@@ -4,6 +4,8 @@ from DisplayContents import oppdaterSkjerm
 import threading
 import datetime
 from appJar import gui
+import json
+
 
 sale_file = "sale_file.csv" 
 system_color = "Light blue"

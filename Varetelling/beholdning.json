@@ -1,0 +1,180 @@
+{
+  "Beer": [
+    {
+      "Barcode": 7033050815044,
+      "Name": "Aass Bayer",
+      "Volume": 0.5,
+      "Type": "Beer",
+      "Amount": 9
+    },
+    {
+      "Barcode": 7044610874616,
+      "Name": "Tuborg Lite",
+      "Volume": 0.5,
+      "Type": "Beer",
+      "Amount": 0
+    },
+    {
+      "Barcode": 7033050815525,
+      "Name": "Aass Fatøl",
+      "Volume": 0.3,
+      "Type": "Beer",
+      "Amount": 2
+    },
+    {
+      "Barcode": 7090040940070,
+      "Name": "Oslo Mellow IPA",
+      "Volume": 0.3,
+      "Type": "Beer",
+      "Amount": 21
+    }
+  ],
+  "non-alcoholic beer": [
+    {
+      "Barcode": 7090044040127,
+      "Name": "Klokk&Co FRIPA",
+      "Volume": 0.3,
+      "Type": "non-alcoholic beer",
+      "Amount": 5
+    },
+    {
+      "Barcode": 7044610874500,
+      "Name": "Munkholm Bayer",
+      "Volume": 0.3,
+      "Type": "non-alcoholic beer",
+      "Amount": 6
+    },
+    {
+      "Barcode": 7033050830061,
+      "Name": "Aass Uten",
+      "Volume": 0.3,
+      "Type": "non-alcoholic beer",
+      "Amount": 6
+    },
+    {
+      "Barcode": 7090036240726,
+      "Name": "Sagene Kjørepils",
+      "Volume": 0.3,
+      "Type": "non-alcoholic beer",
+      "Amount": 4
+    },
+    {
+      "Barcode": 7044613875412,
+      "Name": "Munkholm Fruktig IPA",
+      "Volume": 0.3,
+      "Type": "non-alcoholic beer",
+      "Amount": 0
+    }
+  ],
+  "Non-Gluten": [
+    {
+      "Barcode": 7033050815549,
+      "Name": "Aass Lite ",
+      "Volume": 0.3,
+      "Type": "Non-Gluten",
+      "Amount": 11
+    },
+    {
+      "Barcode": 7033050815082,
+      "Name": "Aass Lite",
+      "Volume": 0.5,
+      "Type": "Non-Gluten",
+      "Amount": 0
+    }
+  ],
+  "Cider": [
+    {
+      "Barcode": 7044613875672,
+      "Name": "Sommersby Sparkling",
+      "Volume": 0.5,
+      "Type": "Cider",
+      "Amount": 21
+    },
+    {
+      "Barcode": 7310070786937,
+      "Name": "Sommersby Eple",
+      "Volume": 0.5,
+      "Type": "Cider",
+      "Amount": 6
+    },
+    {
+      "Barcode": 5011166018896,
+      "Name": "Crabbie's Orignal",
+      "Volume": 0.5,
+      "Type": "Cider",
+      "Amount": 3
+    },
+    {
+      "Barcode": 5010134008426,
+      "Name": "Ginger Joe",
+      "Volume": 0.3,
+      "Type": "Cider",
+      "Amount": 3
+    },
+    {
+      "Barcode": 7044930556100,
+      "Name": "Lade Gaards Cider",
+      "Volume": 0.3,
+      "Type": "Cider",
+      "Amount": 4
+    },
+    {
+      "Barcode": 7030019527246,
+      "Name": "Grevens Julecider",
+      "Volume": 0.5,
+      "Type": "Cider",
+      "Amount": 2
+    },
+    {
+      "Barcode": 7044930422405,
+      "Name": "BARE Pære Cider",
+      "Volume": 0.5,
+      "Type": "Cider",
+      "Amount": 3
+    },
+    {
+      "Barcode": 7030019535524,
+      "Name": "Grevens Eplecider",
+      "Volume": 0.5,
+      "Type": "Cider",
+      "Amount": 2
+    },
+    {
+      "Barcode": 7310070786982,
+      "Name": "Sommersby Pære",
+      "Volume": 0.5,
+      "Type": "Cider",
+      "Amount": 3
+    }
+  ],
+  "Soda": [
+    {
+      "Barcode": 7044610874012,
+      "Name": "Villa Sukkerfri",
+      "Volume": 0.5,
+      "Type": "Soda",
+      "Amount": 8
+    },
+    {
+      "Barcode": 5000112636895,
+      "Name": "Fanta Appelsin",
+      "Volume": 0.5,
+      "Type": "Soda",
+      "Amount": 4
+    },
+    {
+      "Barcode": 7044610874746,
+      "Name": "Farris Bris",
+      "Volume": 0.5,
+      "Type": "Soda",
+      "Amount": 6
+    },
+    {
+      "Barcode": 1,
+      "Name": "Cola",
+      "Volume": 0.5,
+      "Type": "Soda",
+      "Amount": 1
+    }
+  ]
+}

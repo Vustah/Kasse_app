@@ -2,7 +2,20 @@ import datetime
 import tkinter as tk
 import os
 import QuickSorting as QS
+import json
 
+from standardFunc import generate_item
+
+def hentInnhold_x(filnavn,telling=False):
+    infile = open(filnavn, encoding="utf-8")
+    try:
+        innhold = json.load(infile)
+    except json.decoder.JSONDecodeError:
+        innhold = None    
+        print("Need a JSON file")
+        
+    infile.close()
+    return innhold
 
 def hentInnhold(filnavn,telling=False):
     infile = open(filnavn, encoding="utf-8")
@@ -44,9 +57,35 @@ def findItem(item_to_find, array_to_search_in):
             return idx
     return None
 
+def findItem_x(item_to_find,contents,key_type):
+    for drinktype in contents:
+        for drink in contents[drinktype]:
+            if item_to_find == drink[key_type]:
+                return drink
+    return None
+
+def addItem_x(Item):
+    OK = 1
+    if not isinstance(Item, dict):
+        OK = 0
+        return OK
+
+    strekkode = Item["Barcode"]
+    drinkType = Item["Type"]
+    Varekoder_innhold = hentInnhold_x("beholdning.json")
+    index = findItem_x(strekkode,Varekoder_innhold,"Barcode") 
+    if index == None:
+        Varekoder_innhold[drinkType].append(Item)
+    
+    Varekoder_innhold = json.dumps(Varekoder_innhold, indent=2, ensure_ascii=False, )
+    updated_Contents = open("beholdning.json","w",encoding="utf-8")
+    updated_Contents.write(Varekoder_innhold)
+    updated_Contents.close()
+    return OK
+
 def addItem(Item):
     strekkode, VareType, VareNavn, Mengde, Antall_inn = Item
-    Varekoder_innhold = hentInnhold("Varer.csv")
+    Varekoder_innhold = hentInnhold("beholdning.csv")
     
     index = findItem(strekkode,Varekoder_innhold)
     if index == None:
@@ -180,9 +219,12 @@ def telling():
 
 
 if __name__ == "__main__":
-    beholdning = hentInnhold("beholdning.csv")
-    vare_koder = hentInnhold("Varer.csv")
-    sale_file = input("Skriv inn salgsfilen uten mellomrom: ")
-    salg = hentInnhold_salg(sale_file)
-    diff_tabell = genererDiff(vare_koder,salg)
-    oppdaterBeholdning(beholdning,diff_tabell)
+    beholdning = hentInnhold_x("beholdning.json")
+    #print(findItem_x(7090040940070,beholdning,"Barcode"))
+    #print(findItem_x(7033050815549,beholdning,"Barcode"))
+
+    Cola = generate_item(1,"Cola",0.5,"Soda",1)
+    
+    print(addItem_x(Cola))
+
+    
