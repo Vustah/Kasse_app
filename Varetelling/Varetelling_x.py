@@ -64,7 +64,7 @@ def addItem(Item):
     return Varekoder_innhold
 
 
-def findItemInContets(Barcode):
+def findItemInContents(Barcode):
     Varekoder_innhold = hentInnhold("beholdning.json")
     item = findItem(Varekoder_innhold,barcode=Barcode)
 
@@ -77,14 +77,30 @@ def findItemInContets(Barcode):
         Mengde = item["Volume"]
     return VareType, VareNavn, Mengde
 
+def Sale(BarCode):
+    VareType, VareNavn, Mengde = findItemInContents(BarCode)
+    sale_item = generate_item(BarCode,VareNavn,Mengde,VareType,-1)
+    addItem(sale_item)
+
+    today = datetime.datetime.today()
+    year = today.year
+    month = today.month
+    day = today.day
+    hour = today.hour
+    minute = today.minute
+    second = today.second
+    Sale_file = "Salgsfiler/Sale_%d-%d-%d.csv" %(day,month,year)
+    sale = open(Sale_file,"a+",encoding="utf-8")
+    sale.write("%d:%d:%d; %s; %s; %s; %f  \n"%(hour,minute,second,BarCode, VareType, VareNavn,Mengde))
+    sale.close()
 
 if __name__ == "__main__":
     beholdning = hentInnhold("beholdning.json")
-    
+
     Cola = generate_item(1,"Cola",0.5,"Soda",1)
-    addItem(Cola)
+    #addItem(Cola)
     beholdning = hentInnhold("beholdning.json")
 
     print(findItem(beholdning,barcode=1))
-    print(findItemInContets("1"))
+    print(Sale(1))
     
