@@ -4,18 +4,7 @@ import os
 import QuickSorting as QS
 import json
 
-from standardFunc import generate_item, generate_item_for_regestry
 
-def hentInnhold_x(filnavn,telling=False):
-    infile = open(filnavn, encoding="utf-8")
-    try:
-        innhold = json.load(infile)
-    except json.decoder.JSONDecodeError:
-        innhold = None    
-        print("Need a JSON file")
-        
-    infile.close()
-    return innhold
 
 def hentInnhold(filnavn,telling=False):
     infile = open(filnavn, encoding="utf-8")
@@ -57,43 +46,7 @@ def findItem(item_to_find, array_to_search_in):
             return idx
     return None
 
-def findItem_x(item_to_find,contents):
-    Barcode = item_to_find["Barcode"]
-    try:
-        return contents[str(Barcode)]
-    except KeyError:
-        return None
 
-def placeItem_x(item_to_place,contents):
-    for drinktype in contents:
-        for drink in contents[drinktype]:
-            if item_to_place == drink[key_type]: 
-                return 1
-    addItem_x(item_to_place)
-    return None
-
-def addItem_x(Item):
-    OK = 1
-    if not isinstance(Item, dict):
-        return not OK
-
-    strekkode = Item["Barcode"]
-    name = Item["Name"]
-    vol = Item["Volume"]
-    drink_type = Item["Type"]
-    amount = Item["Amount"]
-    Varekoder_innhold = hentInnhold_x("beholdning.json")
-    index = findItem_x(Item,Varekoder_innhold) 
-    if index == None:
-        addedItem = generate_item_for_regestry(strekkode,name,vol, drink_type,amount)
-        Varekoder_innhold.update(addedItem)
-    
-    Varekoder_innhold = json.dumps(Varekoder_innhold, indent=2, ensure_ascii=False )
-    
-    updated_Contents = open("beholdning.json","w",encoding="utf-8")
-    updated_Contents.write(Varekoder_innhold)
-    updated_Contents.close()
-    return OK
 
 def addItem(Item):
     strekkode, VareType, VareNavn, Mengde, Antall_inn = Item
@@ -106,24 +59,6 @@ def addItem(Item):
         Varer_file.close()
     regulerBeholdning(strekkode,VareType, VareNavn, Mengde, Antall_inn)
     
-
-def regulerBeholdning_x(Item):
-    OK = 1
-    if not isinstance(Item, dict):
-        return not OK
-
-    barcode = Item["Barcode"]
-
-    beholdning_innhold = hentInnhold_x("beholdning.json")
-    item_in_content = findItem_x(barcode,beholdning_innhold,"Barcode")
-    if item_in_content == None:
-        Antall = 0
-    else:
-        Antall = item_in_content["Amount"]
-    Item["Amount"] = Item["Amount"]+ Antall
-    
-
-    return OK
 
 def regulerBeholdning(strekkode,VareType, VareNavn, Mengde, Antall_diff):
     beholdning_innhold = hentInnhold("beholdning.csv")
@@ -179,7 +114,6 @@ def lastSales(numberOfSalesToFetch = 5):
 
 def findItemInContents(BarCode):
     Varekoder_innhold = hentInnhold("Varer.csv")
-    #Varekoder_innhold = StdSort(Varekoder_innhold)
     index = findItem(BarCode,Varekoder_innhold)
     VareType = "Unknown"
     VareNavn = "Unknown"
@@ -249,13 +183,4 @@ def telling():
 
 
 if __name__ == "__main__":
-    beholdning = hentInnhold_x("beholdning.json")
-    #print(findItem_x(7090040940070,beholdning,"Barcode"))
-    #print(findItem_x(7033050815549,beholdning,"Barcode"))
-
-    Cola = generate_item(1,"Cola",0.5,"Soda",1)
-    print(addItem_x(Cola))
-    print(findItem_x(Cola,beholdning))
-    #Cola["Amount"] = -1
-    #print(regulerBeholdning_x(Cola))
-    
+    None

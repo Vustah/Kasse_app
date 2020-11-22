@@ -19,3 +19,4 @@ def generate_item_for_regestry(Barcode = 0,Name = "",Volume = 0,Type = "",Amount
             "Amount": Amount
         }
         return item
+

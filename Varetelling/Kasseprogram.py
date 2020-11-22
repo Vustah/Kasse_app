@@ -1,5 +1,6 @@
 import os
 from Varetelling import addItem,Sale,UpdateContents,hentInnhold, findItemInContents, telling, lastSales
+from standardFunc import generate_item, generate_item_for_regestry
 from DisplayContents import oppdaterSkjerm
 import threading
 import datetime
@@ -108,6 +109,8 @@ def addItemInRegestry():
         Antall_inn = int(app.getEntry("Antall"))
     except:
         Antall_inn = 0
+    new_Item = generate_item_for_regestry(strekKode,Varenavn,Varetype,Mengde,Antall_inn)
+#    addItem(new_Item)
     addItem([strekKode,Varetype,Varenavn,Mengde,Antall_inn])
     app.clearAllEntries()
     
