@@ -5,6 +5,8 @@ Program to keep track of the contents in the Gla´timen storage.
 - Place the cusor at the logical place. 
 - Create a log for sale
 - make runfile detect if pc have the dependencies it need. 
+- Change the GUI from using AppJar to QT.
+- Change storage to use JSON format
 
 
 ## How to Use

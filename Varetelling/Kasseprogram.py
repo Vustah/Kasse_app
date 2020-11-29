@@ -33,6 +33,7 @@ def updateContentsFunc():
 def oppdaterSkjermThread(app):
     oppdaterSkjerm(app,intern=True)
     oppdaterSkjerm(app)
+    lastSalesToday()
 
 def press(button):
     global sale_file
@@ -41,7 +42,6 @@ def press(button):
         return
     elif button == "Salg":
         Salg()
-        lastSalesToday()
         return
     elif button == "Find File":
         sale_file = app.openBox()
@@ -161,7 +161,7 @@ def seeContents():
 numberOfSalesToFetch = 5
 def configLastSales():
     for i in range(numberOfSalesToFetch-1,-1,-1):
-        app.addLabel("Sale_"+str(i))
+        app.addLabel("Sale_"+str(i)," ")
 
 def lastSalesToday():
     sisteSalg = VT.lastSales(numberOfSalesToFetch)
