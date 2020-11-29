@@ -1,6 +1,6 @@
 import os
-from Varetelling import addItem,Sale,UpdateContents,hentInnhold, findItemInContents, telling, lastSales
-from standardFunc import generate_item, generate_item_for_regestry
+import Varetelling as VT
+import standardFunc as sF
 from DisplayContents import oppdaterSkjerm
 import threading
 import datetime
@@ -51,7 +51,8 @@ def press(button):
 
     elif button == "Update":
         if sale_file:
-            UpdateContents(sale_file)
+            VT.UpdateContents(sale_file)
+            
             app.setLabel("up1","UPDATED CONTENTS")
             app.setLabelBg("up1","red")
         
@@ -68,7 +69,8 @@ def press(button):
         returnToDefaultEnter()
     
     elif button == "Telling":
-        telling()
+        VT.telling()
+        
 
     elif button == "See Contents":
         launchSubWindow("Contents")
@@ -85,13 +87,15 @@ def Salg():
     strekKode = str(app.getEntry("Strekkode på salg"))
     app.clearAllEntries()
     if strekKode:
-        Sale(strekKode)
+        VT.Sale(strekKode)
+        
         thread = threading.Thread(target=oppdaterSkjermThread, args=(app,))
         thread.start()
 
 def checkIfItemExists():
     strekKode = str(app.getEntry("Strekkode"))
-    VareType, VareNavn, Mengde = findItemInContents(strekKode)
+    VareType, VareNavn, Mengde = VT.findItemInContents(strekKode)
+    
     if VareType == "Unknown" or VareNavn == "Unknown" or Mengde == "Unknown":
         return None
     else:
@@ -109,9 +113,9 @@ def addItemInRegestry():
         Antall_inn = int(app.getEntry("Antall"))
     except:
         Antall_inn = 0
-    new_Item = generate_item_for_regestry(strekKode,Varenavn,Varetype,Mengde,Antall_inn)
-#    addItem(new_Item)
-    addItem([strekKode,Varetype,Varenavn,Mengde,Antall_inn])
+    new_Item = sF.generate_item(strekKode,Varenavn,Varetype,Mengde,Antall_inn)
+    VT.addItem(new_Item)
+    
     app.clearAllEntries()
     
 def clearAllFields():
@@ -160,13 +164,18 @@ def configLastSales():
         app.addLabel("Sale_"+str(i))
 
 def lastSalesToday():
-    sisteSalg = lastSales(numberOfSalesToFetch)
+    sisteSalg = VT.lastSales(numberOfSalesToFetch)
     for idx in range(len(sisteSalg)-1, -1, -1):
         date = sisteSalg[idx][0]
         Type = sisteSalg[idx][2]
         name = sisteSalg[idx][3]
-        mengde = float(sisteSalg[idx][4])
-        logText = "%s: %s,%s,%.1f"%(date,Type,name,mengde)
+        try:
+            mengde = float(sisteSalg[idx][4])
+            logText = "%s: %s,%s,%.1f"%(date,Type,name,mengde)
+        except:
+            mengde = sisteSalg[idx][4]
+            logText = "%s: %s,%s,%s"%(date,Type,name,mengde)
+        
         app.setLabel("Sale_"+str(idx), logText)
 
 
